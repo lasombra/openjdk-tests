@@ -15,7 +15,9 @@
 <playlist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../TestConfig/playlist.xsd">
 	<test>
 		<testCaseName>tomcat_test</testCaseName>
-	<command>docker run --rm -v $(JDK_HOME):/java  adoptopenjdk-tomcat-test:latest ; \
+		<command>docker run -v $(JDK_HOME):/java --name tomcat-test adoptopenjdk-tomcat-test:latest ; \
+			docker cp tomcat-test:/tomcat85/output/build/logs $(REPORTDIR)/external_test_reports; \
+			docker rm tomcat-test; \
 		$(TEST_STATUS)</command>
 		<subsets>
 			<subset>SE80</subset>
